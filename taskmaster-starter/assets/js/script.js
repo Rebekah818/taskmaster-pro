@@ -79,18 +79,22 @@ $("#task-form-modal .btn-primary").click(function () {
     saveTasks();
   }
 });
-
+// task text was clicked
 $(".list-group").on("click", "p", function () {
   var text = $(this)
     .text()
     .trim();
 
+  // replace p element with new textarea
   var textInput = $("<textarea>")
     .addClass("form-control")
     .val(text);
   $(this).replaceWith(textInput);
+
+  // auto focus new element
   textInput.trigger("focus");
 
+  // eitable field was un-focused
   $(".list-group").on("blur", "textarea", function () {
   });
 
@@ -122,18 +126,6 @@ $(".list-group").on("click", "p", function () {
 
 });
 
-// remove all tasks
-$("#remove-tasks").on("click", function () {
-  for (var key in tasks) {
-    tasks[key].length = 0;
-    $("#list-" + key).empty();
-  }
-  saveTasks();
-});
-
-// load tasks for the first time
-loadTasks();
-
 // due date was clicked
 $(".list-group").on("click", "span", function () {
   //get current text
@@ -155,11 +147,11 @@ $(".list-group").on("click", "span", function () {
 });
 
 // value of due date was changed
-$(".list-group").on("blur", "input[type='text']", function() {
+$(".list-group").on("blur", "input[type='text']", function () {
   // get current text 
-  var date=$(this)
-  .val()
-  .trim();
+  var date = $(this)
+    .val()
+    .trim();
 
   // get the parent ul's id attribute
   var status = $(this)
@@ -184,3 +176,17 @@ $(".list-group").on("blur", "input[type='text']", function() {
   // replace input with span element
   $(this).replaceWith(taskSpan);
 });
+
+
+// remove all tasks
+$("#remove-tasks").on("click", function () {
+  for (var key in tasks) {
+    tasks[key].length = 0;
+    $("#list-" + key).empty();
+  }
+  saveTasks();
+});
+
+// load tasks for the first time
+loadTasks();
+
